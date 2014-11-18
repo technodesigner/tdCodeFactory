@@ -1,0 +1,31 @@
+$(i0)<svg xmlns="http://www.w3.org/2000/svg"
+$(i+)viewBox="0 0 $($shapeboard.Width) $($shapeboard.Height)">
+$(i=)<defs>
+$(i+)<style type="text/css">
+$(i+)<![CDATA[
+$(i+)$(foreach ($style in $styles){"
+$(i=)$($style.Target).$($style.Name){
+$(i+)fill: $($style.Fill);
+$(i=)stroke: $($style.Stroke);
+$(i=)stroke-width: $($style.StrokeThickness);
+$(i-)}`r`n"})
+$(i-)]]>
+$(i-)</style>
+$(i-)</defs>
+$(i=)<rect 
+$(i+)x='0' 
+$(i=)y='0' 
+$(i=)width='$($shapeboard.Width)' 
+$(i=)height='$($shapeboard.Height)'
+$(i=)fill='#FFCC4D' />
+$(i-)$(foreach ($rect in $shapes){"
+$(i=)<rect 
+$(i+)class='$($rect.StyleDataName)' 
+$(i=)x='$($rect.X)'
+$(i=)y='$($rect.Y)'
+$(i=)width='$($rect.Width)'
+$(i=)height='$($rect.Height)'
+$(i=)rx='$($rect.RadiusX)'
+$(i=)ry='$($rect.RadiusY)'/>
+$(i-)`r`n"})
+$(i0)</svg>

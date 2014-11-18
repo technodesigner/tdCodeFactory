@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 $($shapeboard.Width) $($shapeboard.Height)">
+    <defs>
+        <style type="text/css">
+            <![CDATA[
+                $($shapeStyle.Target).$($shapeStyle.Name){
+                    fill: $($shapeStyle.Fill);
+                    stroke: $($shapeStyle.Stroke);
+                    stroke-width: $($shapeStyle.StrokeThickness);
+                }
+            ]]>
+        </style>
+    </defs>
+    <rect 
+        x='0' 
+        y='0' 
+        width='$($shapeboard.Width)' 
+        height='$($shapeboard.Height)'
+        fill='#FFCC4D' />
+    <rect 
+	    class='$($rect.StyleDataName)' 
+	    x='$($rect.X)'
+        y='$($rect.Y)'
+        width='$($rect.Width)'
+        height='$($rect.Height)'
+        rx='$($rect.RadiusX)'
+        ry='$($rect.RadiusY)'/>
+</svg>

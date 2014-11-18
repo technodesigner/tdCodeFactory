@@ -1,0 +1,45 @@
+$(i0)<Grid 
+$(i+)xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+$(i=)xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+$(i=)<Viewbox>
+$(i+)<Canvas Width="$($shapeboard.Width)" Height="$($shapeboard.Height)">
+$(i+)<Canvas.Resources>
+$(i+)$(foreach ($style in $styles){"
+$(i=)<Style 
+$(i+)TargetType='$([CultureInfo]::InvariantCulture.TextInfo.ToTitleCase($style.Target))' 
+$(i=)x:Key='$($style.Name)'>
+$(i=)<Setter Property='Fill' Value='$($style.Fill)' />
+$(i=)<Setter Property='Stroke' Value='$($style.Stroke)' />
+$(i=)<Setter Property='StrokeThickness' Value='$($style.StrokeThickness)' />
+$(i-)</Style>`r`n"})
+$(i=)$(foreach ($transform in $transforms){"
+$(i=)<MatrixTransform 
+$(i+)x:Key='$($transform.Name)'>
+$(i=)<MatrixTransform.Matrix>
+$(i+)<Matrix M11='$($transform.ScaleX)' M22='$($transform.ScaleY)' OffsetX='$($transform.TranslateX)' OffsetY='$($transform.TranslateY)' />
+$(i-)</MatrixTransform.Matrix>
+$(i-)</MatrixTransform>`r`n"})
+$(i=)$(foreach ($shapeDef in $shapeDefs){"
+$(i=)<Path
+$(i+)x:Key='$($shapeDef.Name)'
+$(i=)x:Shared='false'
+$(i=)Style='{StaticResource $($shapeDef.StyleDataName)}' 
+$(i=)$(if ($shapeDef.TransformDataName){'RenderTransform=''{StaticResource ' + $($shapeDef.TransformDataName) + '}'''})
+$(i=)Data='$($shapeDef.PathData)'
+$(i-)/>`r`n"})
+$(i-)</Canvas.Resources>
+$(i=)<Rectangle Width='$($shapeboard.Width)' Height='$($shapeboard.Height)' Fill='#FFCC4D' />
+$(i=)$(foreach ($shape in $shapes){"
+$(i=)<Path 
+$(i+)Style='{StaticResource $($shape.StyleDataName)}' 
+$(i=)Data='$($shape.PathData)'
+$(i=)$(if ($shape.TransformDataName){'RenderTransform=''{StaticResource ' + $($shape.TransformDataName) + '}'''})
+$(i-) />`r`n"})
+$(i=)$(foreach ($shapeRef in $shapeRefs){"
+$(i=)<ContentControl
+$(i+)$(if ($shapeRef.TransformDataName){'RenderTransform=''{StaticResource ' + $($shapeRef.TransformDataName) + '}'''})>
+$(i=)<StaticResource ResourceKey='$($shapeRef.DefName)' />
+$(i-)</ContentControl>`r`n"})
+$(i-)</Canvas>
+$(i-)</Viewbox>
+$(i0)</Grid>

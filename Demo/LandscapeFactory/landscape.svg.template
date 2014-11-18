@@ -1,0 +1,40 @@
+$(i0)<?xml version="1.0"?>
+$(i0)<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+$(i=)$(foreach ($transform in $transforms){"
+$(i+)<!ENTITY $($transform.Name) 'matrix($($transform.ScaleX), 0, 0, $($transform.ScaleY), $($transform.TranslateX), $($transform.TranslateY))'>
+$(i-)`r`n"})
+$(i0)]>
+$(i0)<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+$(i+)viewBox="0 0 $($shapeboard.Width) $($shapeboard.Height)">
+$(i=)<defs>
+$(i+)<style type="text/css">
+$(i+)<![CDATA[
+$(i+)$(foreach ($style in $styles){"
+$(i=)$($style.Target).$($style.Name){
+$(i+)fill: $($style.Fill);
+$(i=)stroke: $($style.Stroke);
+$(i=)stroke-width: $($style.StrokeThickness);
+$(i-)}`r`n"})
+$(i-)]]>
+$(i-)</style>
+$(i=)$(foreach ($shapeDef in $shapeDefs){"
+$(i=)<path
+$(i+)id='$($shapeDef.Name)'
+$(i+)class='$($shapeDef.StyleDataName)' 
+$(i=)$(if ($shapeDef.TransformDataName){'transform=''&' + $($shapeDef.TransformDataName) + ';'''})
+$(i=)d='$($shapeDef.PathData)'
+$(i-)/>`r`n"})
+$(i-)</defs>
+$(i=)<rect width='$($shapeboard.Width)' height='$($shapeboard.Height)' fill='#FFCC4D' />
+$(i=)$(foreach ($shape in $shapes){"
+$(i=)<path 
+$(i+)class='$($shape.StyleDataName)' 
+$(i=)$(if ($shape.TransformDataName){'transform=''&' + $($shape.TransformDataName) + ';'''})
+$(i=)d='$($shape.PathData)'
+$(i-)/>`r`n"})
+$(i=)$(foreach ($shapeRef in $shapeRefs){"
+$(i=)<use 
+$(i+)xlink:href='#$($shapeRef.DefName)' 
+$(i=)$(if ($shapeRef.TransformDataName){'transform=''&' + $($shapeRef.TransformDataName) + ';'''})
+$(i-)/>`r`n"})
+$(i0)</svg>
